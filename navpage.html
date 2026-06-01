@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E家导航 - E家分享专属导航页</title>
+<meta name="application-name" content="E家导航">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" type="image/x-icon" href="https://www.5iehome.cc/favicon.ico">
+<link rel="dns-prefetch" href="https://fonts.loli.net">
+<link rel="dns-prefetch" href="https://gstatic.loli.net">
+<link rel="dns-prefetch" href="https://www.google.com">
+<link rel="dns-prefetch" href="https://icons.duckduckgo.com">
+<link rel="dns-prefetch" href="https://trae-api-cn.mchost.guru">
+<link rel="dns-prefetch" href="https://t0.gstatic.com">
+<link rel="preconnect" href="https://fonts.loli.net">
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin>
+<link rel="preconnect" href="https://t0.gstatic.com" crossorigin>
+<link href="https://fonts.loli.net/css2?family=Inter:wght@400;500;600;700&family=LXGW+WenKai:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" crossorigin="anonymous">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+.hidden{display:none!important}
+:root{
+  --radius-sm:8px;--radius-md:14px;--radius-lg:20px;--radius-xl:28px;
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  --font-mono:'SF Mono','JetBrains Mono',monospace;
+  --font-cn:'LXGW WenKai',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  --transition:0.25s cubic-bezier(0.4,0,0.2,1);
+  --transition-slow:0.4s cubic-bezier(0.4,0,0.2,1);
+  --accent:#6c5ce7;--accent-light:#a29bfe;--accent-glow:rgba(108,92,231,0.3);
+  --danger:#e74c3c;--success:#00b894;--sidebar-w:200px;
+}
+[data-theme="dark"]{
+  --bg-primary:#0a0a0f;--bg-secondary:#12121a;
+  --bg-card:rgba(255,255,255,0.04);--bg-card-hover:rgba(255,255,255,0.07);
+  --bg-glass:rgba(255,255,255,0.06);--border-glass:rgba(255,255,255,0.08);
+  --border-glass-hover:rgba(255,255,255,0.15);
+  --text-primary:rgba(255,255,255,0.92);--text-secondary:rgba(255,255,255,0.55);--text-muted:rgba(255,255,255,0.3);
+  --shadow-card:0 4px 24px rgba(0,0,0,0.3);--shadow-float:0 12px 48px rgba(0,0,0,0.5);
+  --mesh-c1:rgba(108,92,231,0.12);--mesh-c2:rgba(0,184,148,0.08);--mesh-c3:rgba(162,155,254,0.05);
+  --noise-opacity:0.03;--cell-bg:rgba(255,255,255,0.02);--cell-hover:rgba(255,255,255,0.06);
+  --input-bg:rgba(255,255,255,0.04);--btn-overlay:rgba(0,0,0,0.5);
+  --favicon-bg:rgba(255,255,255,0.06);--dash-border:rgba(255,255,255,0.08);--dash-hover:rgba(255,255,255,0.15);
+  --emoji-hover:rgba(255,255,255,0.1);--action-hover:rgba(255,255,255,0.06);
+  --engine-hover:rgba(255,255,255,0.06);--search-focus-bg:rgba(255,255,255,0.08);
+  --sidebar-bg:rgba(18,18,26,0.85);--sidebar-border:rgba(255,255,255,0.06);
+  --nav-item-hover:rgba(255,255,255,0.06);--nav-item-active:rgba(108,92,231,0.15);
+  --group-icon-0-bg:rgba(108,92,231,0.2);--group-icon-0-c:#a29bfe;
+  --group-icon-1-bg:rgba(0,184,148,0.2);--group-icon-1-c:#55efc4;
+  --group-icon-2-bg:rgba(253,203,110,0.2);--group-icon-2-c:#fdcb6e;
+  --group-icon-3-bg:rgba(232,67,147,0.2);--group-icon-3-c:#fd79a8;
+  --group-icon-4-bg:rgba(9,132,227,0.2);--group-icon-4-c:#74b9ff;
+  --group-icon-5-bg:rgba(255,118,117,0.2);--group-icon-5-c:#ff7675;
+}
+[data-theme="light"]{
+  --bg-primary:#f5f5f7;--bg-secondary:#ffffff;
+  --bg-card:rgba(0,0,0,0.03);--bg-card-hover:rgba(0,0,0,0.05);
+  --bg-glass:rgba(255,255,255,0.7);--border-glass:rgba(0,0,0,0.08);
+  --border-glass-hover:rgba(0,0,0,0.15);
+  --text-primary:rgba(0,0,0,0.88);--text-secondary:rgba(0,0,0,0.5);--text-muted:rgba(0,0,0,0.26);
+  --shadow-card:0 4px 24px rgba(0,0,0,0.06);--shadow-float:0 12px 48px rgba(0,0,0,0.1);
+  --mesh-c1:rgba(108,92,231,0.06);--mesh-c2:rgba(0,184,148,0.04);--mesh-c3:rgba(162,155,254,0.03);
+  --noise-opacity:0.015;--cell-bg:rgba(0,0,0,0.02);--cell-hover:rgba(0,0,0,0.04);
+  --input-bg:rgba(0,0,0,0.03);--btn-overlay:rgba(255,255,255,0.8);
+  --favicon-bg:rgba(0,0,0,0.04);--dash-border:rgba(0,0,0,0.08);--dash-hover:rgba(0,0,0,0.12);
+  --emoji-hover:rgba(0,0,0,0.06);--action-hover:rgba(0,0,0,0.05);
+  --engine-hover:rgba(0,0,0,0.04);--search-focus-bg:rgba(255,255,255,0.9);
+  --sidebar-bg:rgba(255,255,255,0.85);--sidebar-border:rgba(0,0,0,0.06);
+  --nav-item-hover:rgba(0,0,0,0.04);--nav-item-active:rgba(108,92,231,0.1);
+  --group-icon-0-bg:rgba(108,92,231,0.12);--group-icon-0-c:#6c5ce7;
+  --group-icon-1-bg:rgba(0,184,148,0.12);--group-icon-1-c:#00b894;
+  --group-icon-2-bg:rgba(253,203,110,0.15);--group-icon-2-c:#e17055;
+  --group-icon-3-bg:rgba(232,67,147,0.12);--group-icon-3-c:#e84393;
+  --group-icon-4-bg:rgba(9,132,227,0.12);--group-icon-4-c:#0984e3;
+  --group-icon-5-bg:rgba(255,118,117,0.12);--group-icon-5-c:#d63031;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;transition:background 0.4s ease,color 0.4s ease;
+}
+.bg-mesh{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 10% 20%,var(--mesh-c1),transparent),
+    radial-gradient(ellipse 60% 80% at 85% 70%,var(--mesh-c2),transparent),
+    radial-gradient(ellipse 70% 50% at 50% 50%,var(--mesh-c3),transparent);
+  transition:background 0.4s ease;
+}
+.bg-noise{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--noise-opacity);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px 128px;transition:opacity 0.4s ease;
+}
+.layout{display:flex;min-height:100vh;position:relative;z-index:1}
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;background:var(--sidebar-bg);
+  border-right:1px solid var(--sidebar-border);backdrop-filter:blur(20px);
+  display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:10;
+  transition:background 0.4s ease;
+}
+.sidebar-logo{padding:20px 20px 16px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--sidebar-border)}
+.sidebar-logo-text{
+  font-family:var(--font-cn);font-size:1.5rem;font-weight:700;color:var(--text-primary);
+  letter-spacing:0.25em;
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent-light) 50%,#74b9ff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.sidebar-clock{padding:16px 16px 14px;border-bottom:1px solid var(--sidebar-border);text-align:center}
+.sidebar-clock .clock{font-family:var(--font-mono);font-size:2.4rem;font-weight:300;letter-spacing:0.08em;color:var(--text-primary);margin-bottom:2px;font-variant-numeric:tabular-nums}
+.sidebar-clock .clock-date{font-family:var(--font-cn);font-size:0.8rem;color:var(--text-secondary);letter-spacing:0.06em}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 10px}
+.sidebar-nav::-webkit-scrollbar{width:3px}
+.sidebar-nav::-webkit-scrollbar-thumb{background:var(--border-glass);border-radius:3px}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);
+  cursor:pointer;transition:var(--transition);color:var(--text-secondary);font-size:0.88rem;
+  border:none;background:none;width:100%;font-family:var(--font-cn);text-align:left;
+  margin-bottom:2px;position:relative;letter-spacing:0.04em;
+}
+.nav-item:hover{background:var(--nav-item-hover);color:var(--text-primary)}
+.nav-item.active{background:var(--nav-item-active);color:var(--accent-light)}
+.nav-item-icon{width:28px;height:28px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0}
+.nav-item-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-item-count{font-size:0.72rem;color:var(--text-muted);background:var(--cell-bg);padding:2px 7px;border-radius:10px}
+.nav-drag-handle{width:16px;height:20px;display:none;flex-shrink:0;align-items:center;justify-content:center;opacity:0.4}
+.nav-drag-handle svg{width:12px;height:12px}
+.nav-item:hover .nav-drag-handle{display:flex}
+.nav-item.dragging{opacity:0.4;background:var(--nav-item-hover)}
+.nav-add-group{
+  display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;
+  border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);color:var(--text-muted);
+  border:2px dashed var(--dash-border);background:none;width:100%;font-family:var(--font-cn);
+  font-size:0.82rem;margin-top:8px;letter-spacing:0.04em;
+}
+.nav-add-group:hover{border-color:var(--accent);color:var(--accent-light)}
+.sidebar-footer{padding:10px;border-top:1px solid var(--sidebar-border);display:flex;flex-direction:column;gap:3px}
+.sidebar-btn{
+  display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius-sm);
+  cursor:pointer;transition:var(--transition);color:var(--text-secondary);font-size:0.8rem;
+  border:none;background:none;width:100%;font-family:var(--font-cn);text-align:left;letter-spacing:0.04em;
+}
+.sidebar-btn:hover{background:var(--nav-item-hover);color:var(--text-primary)}
+.sidebar-btn svg{width:15px;height:15px;flex-shrink:0}
+.sidebar-footer-row{display:flex;gap:3px}
+.sidebar-footer-row .sidebar-btn{flex:1;min-width:0;padding:8px 6px;gap:6px;font-size:0.76rem;justify-content:center}
+.theme-toggle{position:relative;width:16px;height:16px;flex-shrink:0}
+.theme-toggle .sun-icon,.theme-toggle .moon-icon{position:absolute;inset:0;transition:opacity 0.3s ease,transform 0.3s ease}
+[data-theme="dark"] .theme-toggle .sun-icon{opacity:1;transform:rotate(0deg)}
+[data-theme="dark"] .theme-toggle .moon-icon{opacity:0;transform:rotate(-90deg)}
+[data-theme="light"] .theme-toggle .sun-icon{opacity:0;transform:rotate(90deg)}
+[data-theme="light"] .theme-toggle .moon-icon{opacity:1;transform:rotate(0deg)}
+.main{flex:1;margin-left:var(--sidebar-w);padding:24px 24px 0;display:flex;flex-direction:column;min-height:100vh}
+.main .groups-container{flex:1;padding-bottom:80px}
+.groups-container{display:flex;flex-direction:column;gap:24px;margin-top:32px}
+.group{background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-lg);padding:14px 16px;backdrop-filter:blur(12px);transition:var(--transition);scroll-margin-top:24px}
+.group:hover{border-color:var(--border-glass-hover)}
+.group-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px}
+.group-title-wrap{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.group-icon{width:24px;height:24px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.group-title{font-family:var(--font-cn);font-size:0.98rem;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.06em}
+.group-actions{display:flex;gap:4px;flex-shrink:0}
+.group-actions button{background:none;border:none;cursor:pointer;width:28px;height:28px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:var(--transition);font-size:0.85rem}
+.group-actions button:hover{background:var(--action-hover);color:var(--text-secondary)}
+.bookmarks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(max(140px,calc((100% - 10px)/7)),1fr));gap:10px;min-width:0}
+.bookmark-card{
+  display:flex;flex-direction:row;align-items:center;gap:10px;padding:8px 10px;
+  background:var(--cell-bg);border:1px solid transparent;border-radius:var(--radius-md);
+  cursor:pointer;transition:var(--transition);transition-property:background,border-color,transform,box-shadow;
+  text-decoration:none;position:relative;user-select:none;height:48px;
+}
+.bookmark-card:hover{background:var(--cell-hover);border-color:var(--border-glass);transform:translateY(-2px);box-shadow:var(--shadow-card)}
+.bookmark-card:active{transform:translateY(0);transition-duration:0.1s}
+.bookmark-card.dragging{opacity:0.4;transform:scale(0.95)}
+.bookmark-card.drag-over{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-glow)}
+.bookmark-favicon{width:32px;height:32px;border-radius:var(--radius-sm);background:var(--favicon-bg);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.bookmark-favicon img{width:22px;height:22px;object-fit:contain}
+.bookmark-favicon .fallback-icon{font-size:0.95rem;color:var(--text-muted)}
+.bookmark-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;overflow:hidden}
+.bookmark-name{font-size:0.8rem;font-weight:500;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;letter-spacing:0.02em}
+.bookmark-desc{font-size:0.7rem;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;letter-spacing:0.03em}
+.bookmark-edit,.bookmark-delete{
+  position:absolute;top:4px;width:22px;height:22px;border-radius:50%;background:var(--btn-overlay);
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  color:var(--text-muted);font-size:0.7rem;transition:var(--transition);backdrop-filter:blur(4px);
+}
+.bookmark-edit{right:30px}.bookmark-delete{right:4px}
+.bookmark-card:hover .bookmark-edit,.bookmark-card:hover .bookmark-delete{display:flex}
+.bookmark-edit:hover{background:var(--accent);color:#fff}
+.bookmark-delete:hover{background:var(--danger);color:#fff}
+.modal-overlay{
+  position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.2s ease;
+}
+.modal-overlay.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal{background:var(--bg-secondary);border:1px solid var(--border-glass);border-radius:var(--radius-xl);padding:32px;width:100%;max-width:460px;box-shadow:var(--shadow-float);animation:slideUp 0.3s cubic-bezier(0.16,1,0.3,1)}
+.modal h2{font-family:var(--font-cn);font-size:1.3rem;font-weight:600;margin-bottom:24px;color:var(--text-primary);letter-spacing:0.06em}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:0.84rem;color:var(--text-secondary);margin-bottom:6px;font-weight:500;font-family:var(--font-cn);letter-spacing:0.04em}
+.form-group input{width:100%;padding:12px 14px;background:var(--input-bg);border:1px solid var(--border-glass);border-radius:var(--radius-md);color:var(--text-primary);font-size:0.95rem;font-family:var(--font-cn);transition:var(--transition);outline:none;letter-spacing:0.03em}
+.form-group input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.form-group input::placeholder{color:var(--text-muted)}
+.form-group .input-hint{font-size:0.75rem;color:var(--text-muted);margin-top:4px}
+.form-group .input-row{display:flex;gap:8px}
+.form-group .input-row input{flex:1}
+.fetch-btn{padding:12px 16px;background:rgba(108,92,231,0.15);border:1px solid rgba(108,92,231,0.3);border-radius:var(--radius-md);color:var(--accent-light);cursor:pointer;font-size:0.82rem;font-family:var(--font-cn);white-space:nowrap;transition:var(--transition);letter-spacing:0.04em}
+.fetch-btn:hover{background:rgba(108,92,231,0.25)}
+.fetch-btn:disabled{opacity:0.5;cursor:not-allowed}
+.favicon-preview{display:flex;align-items:center;gap:12px;margin-top:8px}
+.favicon-preview img{width:32px;height:32px;border-radius:6px;background:var(--favicon-bg)}
+.favicon-preview span{font-size:0.82rem;color:var(--text-secondary)}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:28px}
+.btn{padding:10px 22px;border-radius:var(--radius-md);font-size:0.9rem;font-weight:500;cursor:pointer;font-family:var(--font-cn);transition:var(--transition);border:none;letter-spacing:0.04em}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-light);transform:scale(1.02)}
+.btn-secondary{background:var(--input-bg);color:var(--text-secondary);border:1px solid var(--border-glass)}
+.btn-secondary:hover{background:var(--cell-hover);color:var(--text-primary)}
+.btn-danger{background:rgba(231,76,60,0.15);color:var(--danger);border:1px solid rgba(231,76,60,0.2)}
+.btn-danger:hover{background:rgba(231,76,60,0.25)}
+.spinner,.loading-spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border-glass);border-top-color:var(--accent);border-radius:50%;animation:spin 0.6s linear infinite}
+.loading-spinner{border-color:var(--text-muted);border-top-color:var(--accent-light)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg-secondary);border:1px solid var(--border-glass);border-radius:var(--radius-md);padding:12px 24px;color:var(--text-primary);font-size:0.9rem;box-shadow:var(--shadow-float);z-index:2000;opacity:0;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.error{border-color:rgba(231,76,60,0.3);color:var(--danger)}
+.toast.success{border-color:rgba(0,184,148,0.3);color:var(--success)}
+.group-color-0 .group-icon{background:var(--group-icon-0-bg);color:var(--group-icon-0-c)}
+.group-color-1 .group-icon{background:var(--group-icon-1-bg);color:var(--group-icon-1-c)}
+.group-color-2 .group-icon{background:var(--group-icon-2-bg);color:var(--group-icon-2-c)}
+.group-color-3 .group-icon{background:var(--group-icon-3-bg);color:var(--group-icon-3-c)}
+.group-color-4 .group-icon{background:var(--group-icon-4-bg);color:var(--group-icon-4-c)}
+.group-color-5 .group-icon{background:var(--group-icon-5-bg);color:var(--group-icon-5-c)}
+.nav-color-0{background:var(--group-icon-0-bg);color:var(--group-icon-0-c)}
+.nav-color-1{background:var(--group-icon-1-bg);color:var(--group-icon-1-c)}
+.nav-color-2{background:var(--group-icon-2-bg);color:var(--group-icon-2-c)}
+.nav-color-3{background:var(--group-icon-3-bg);color:var(--group-icon-3-c)}
+.nav-color-4{background:var(--group-icon-4-bg);color:var(--group-icon-4-c)}
+.nav-color-5{background:var(--group-icon-5-bg);color:var(--group-icon-5-c)}
+.emoji-picker{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:8px}
+.emoji-option{width:36px;height:36px;border:none;background:none;cursor:pointer;border-radius:var(--radius-sm);font-size:1.2rem;transition:var(--transition);display:flex;align-items:center;justify-content:center}
+.emoji-option:hover{background:var(--emoji-hover)}
+.emoji-option.active{background:var(--accent-glow)}
+.admin-only{display:none !important}
+body.admin-mode .admin-only{display:flex !important}
+.guest-only{display:none !important}
+body:not(.admin-mode) .guest-only{display:flex !important}
+.mobile-menu-btn{display:none;position:fixed;top:16px;left:16px;z-index:20;background:var(--bg-glass);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:10px;cursor:pointer;color:var(--text-secondary);backdrop-filter:blur(12px)}
+.mobile-menu-btn svg{width:20px;height:20px}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform 0.3s ease;z-index:100}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:16px 12px 0}
+  .mobile-menu-btn{display:block}
+  .bookmarks-grid{grid-template-columns:repeat(auto-fill,minmax(max(120px,calc((100% - 10px)/5)),1fr));gap:8px}
+  .bookmark-card{padding:8px 10px;height:48px}
+  .bookmark-favicon{width:32px;height:32px}
+  .bookmark-favicon img{width:22px;height:22px}
+  .group{padding:12px}
+  .modal{padding:24px;margin:12px}
+}
+@media(max-width:640px){.bookmarks-grid{grid-template-columns:repeat(auto-fill,minmax(max(110px,calc((100% - 8px)/4)),1fr));gap:8px}}
+@media(max-width:480px){
+  .bookmarks-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .bookmark-card{height:44px;padding:6px 8px}
+  .bookmark-favicon{width:28px;height:28px}
+  .bookmark-favicon img{width:20px;height:20px}
+  .bookmark-name{font-size:0.75rem}
+  .bookmark-desc{font-size:0.65rem}
+}
+@media(max-width:360px){.bookmarks-grid{grid-template-columns:1fr;gap:8px}.main{padding:12px 10px 0}}
+.bg-ghibli{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 0.8s ease;overflow:hidden}
+.bg-ghibli.active{opacity:1}
+.bg-ghibli img{width:100%;height:100%;object-fit:cover;transition:filter 0.4s ease}
+[data-theme="dark"] .bg-ghibli img{filter:brightness(0.35) saturate(1.3)}
+[data-theme="light"] .bg-ghibli img{filter:brightness(0.7) saturate(1.1)}
+body.bg-image-active .bg-mesh{opacity:0;transition:opacity 0.6s ease}
+body.bg-image-active .bg-noise{opacity:0;transition:opacity 0.6s ease}
+body.bg-image-active .group{backdrop-filter:blur(24px) saturate(1.3) brightness(1.05);-webkit-backdrop-filter:blur(24px) saturate(1.3) brightness(1.05);border-color:rgba(255,255,255,0.12);box-shadow:0 4px 32px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.06)}
+body.bg-image-active{--bg-card:rgba(10,10,15,0.35);--bg-card-hover:rgba(10,10,15,0.5);--sidebar-bg:rgba(18,18,26,0.7);--cell-bg:rgba(255,255,255,0.06);--cell-hover:rgba(255,255,255,0.1)}
+[data-theme="light"] body.bg-image-active .group{border-color:rgba(255,255,255,0.35);box-shadow:0 4px 32px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.4)}
+[data-theme="light"] body.bg-image-active{--bg-card:rgba(255,255,255,0.3);--bg-card-hover:rgba(255,255,255,0.48);--sidebar-bg:rgba(255,255,255,0.65);--cell-bg:rgba(0,0,0,0.05);--cell-hover:rgba(0,0,0,0.08)}
+.bg-preview{margin:8px 10px 4px;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-glass);aspect-ratio:16/9;display:none;position:relative;cursor:pointer}
+.bg-preview.active{display:block}
+.bg-preview img{width:100%;height:100%;object-fit:cover}
+.bg-preview-label{position:absolute;bottom:0;left:0;right:0;padding:3px 8px;font-size:0.65rem;color:rgba(255,255,255,0.8);background:linear-gradient(transparent,rgba(0,0,0,0.6));font-family:var(--font-cn);letter-spacing:0.04em}
+.bg-theme-picker{display:none;padding:0 10px 6px}
+.bg-theme-picker.active{display:block}
+.bg-theme-title{font-size:0.68rem;color:var(--text-muted);margin-bottom:4px;font-family:var(--font-cn);letter-spacing:0.04em}
+.bg-theme-options{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.bg-theme-opt{padding:5px 0;border-radius:var(--radius-sm);border:1px solid var(--border-glass);background:var(--cell-bg);color:var(--text-secondary);font-size:0.7rem;cursor:pointer;font-family:var(--font-cn);transition:var(--transition);letter-spacing:0.03em;text-align:center}
+.bg-theme-opt:hover{background:var(--cell-hover);color:var(--text-primary);border-color:var(--border-glass-hover)}
+.bg-theme-opt.selected{background:var(--accent-glow);color:var(--accent-light);border-color:rgba(108,92,231,0.4)}
+.site-footer{text-align:center;padding:32px 0 24px;font-size:0.78rem;color:var(--text-muted);font-family:var(--font-cn);letter-spacing:0.04em}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-noise"></div>
+<div class="bg-ghibli" id="bgGhibli"><img id="bgGhibliImg" src="" alt=""></div>
+
+<button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-text">E家导航</div></div>
+    <div class="sidebar-clock">
+      <div class="clock" id="clock">00:00</div>
+      <div class="clock-date" id="clockDate"></div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="bg-preview" id="bgPreview" onclick="toggleBgImage()">
+      <img id="bgPreviewImg" src="" alt="">
+      <div class="bg-preview-label" id="bgPreviewLabel">乡村 · 日间</div>
+    </div>
+    <div class="bg-theme-picker" id="bgThemePicker">
+      <div class="bg-theme-title">选择背景风格</div>
+      <div class="bg-theme-options" id="bgThemeOptions"></div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-row">
+        <button class="sidebar-btn" onclick="toggleTheme()">
+          <div class="theme-toggle">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </div>
+          <span id="themeLabel">日间模式</span>
+        </button>
+        <button class="sidebar-btn" onclick="toggleBgImage()" id="bgToggleBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span id="bgLabel">背景</span>
+        </button>
+      </div>
+      <div class="sidebar-footer-row admin-only">
+        <button class="sidebar-btn" onclick="exportData()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          下载
+        </button>
+        <button class="sidebar-btn" onclick="document.getElementById('importFile').click()" style="background:rgba(108,92,231,0.15);color:var(--accent-light);border:1px solid rgba(108,92,231,0.3);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          上传
+        </button>
+      </div>
+      <div class="admin-only" style="padding:6px 8px;font-size:0.72rem;color:var(--text-muted);letter-spacing:0.03em;">
+        修改后→下载，上传覆盖服务器→下次生效
+      </div>
+      <input type="file" id="importFile" accept=".json" class="hidden" onchange="importData(event)">
+      <button class="sidebar-btn admin-only" onclick="openLoginModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        退出管理
+      </button>
+      <button class="sidebar-btn guest-only" onclick="openLoginModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        管理员登录
+      </button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="groups-container" id="groupsContainer"></div>
+    <footer class="site-footer">Copyright © 2020 - <span id="footerYear"></span> E家分享</footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="bookmarkModal">
+  <div class="modal">
+    <h2 id="bookmarkModalTitle">添加书签</h2>
+    <div class="form-group"><label>网址</label><div class="input-row"><input type="url" id="bmUrl" placeholder="https://example.com" oninput="onUrlInput()"><button class="fetch-btn" id="fetchBtn" onclick="fetchSiteInfo()">自动获取</button></div><div class="input-hint">输入网址后点击"自动获取"</div></div>
+    <div class="form-group"><label>名称</label><input type="text" id="bmName" placeholder="网站名称" maxlength="40"></div>
+    <div class="form-group"><label>描述</label><input type="text" id="bmDesc" placeholder="网站描述（可选）" maxlength="40"></div>
+    <div class="form-group"><label>Favicon 预览</label><div class="favicon-preview" id="faviconPreview"><span style="color:var(--text-muted)">输入网址后自动获取</span></div></div>
+    <div class="modal-actions"><button class="btn btn-secondary" onclick="closeModal('bookmarkModal')">取消</button><button class="btn btn-primary" onclick="saveBookmark()">保存</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="groupModal">
+  <div class="modal">
+    <h2 id="groupModalTitle">添加分组</h2>
+    <div class="form-group"><label>分组名称</label><input type="text" id="groupName" placeholder="例如：常用工具"></div>
+    <div class="form-group"><label>图标</label><div class="emoji-picker" id="emojiPicker"></div></div>
+    <div class="modal-actions"><button class="btn btn-secondary" onclick="closeModal('groupModal')">取消</button><button class="btn btn-primary" onclick="saveGroup()">保存</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal">
+    <h2>确认删除</h2>
+    <p id="confirmMsg" style="color:var(--text-secondary);margin-bottom:20px"></p>
+    <div class="modal-actions"><button class="btn btn-secondary" onclick="closeModal('confirmModal')">取消</button><button class="btn btn-danger" id="confirmBtn">删除</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <h2>管理员登录</h2>
+    <div class="form-group"><label>管理密码</label><input type="password" id="loginPassword" placeholder="请输入管理密码" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="modal-actions"><button class="btn btn-secondary" onclick="closeModal('loginModal')">取消</button><button class="btn btn-primary" onclick="doLogin()">登录</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA_KEY='starnav_data',THEME_KEY='starnav_theme',BG_KEY='starnav_bg_image',BG_THEME_KEY='starnav_bg_theme',SERVER_HASH_KEY='starnav_server_hash',CACHE_PREFIX='starnav_cache_',CACHE_EXPIRE=604800000;
+const ADMIN_HASH='44f61792d66021c0030fa37dca5162871345c525f61984b88fa1af16d8117672';
+const EMOJIS=['📌','🔧','🎮','📚','💼','🎨','🎵','🌍','💡','🔥','⭐','🚀','📱','💻','🏠','❤️','🎯','🔑','☁️','📧','🛒','📷','🎬','🔬','📝','🎪','🌈','🏆','🤖','🧠','🧩','⚡','🛡️','🌐','📊','🎙️','💬','🧪','🎧','🧭','🏛️','📡','⚙️','🪄','🗂️','🧬','🤝','💰'];
+const SVG_ICONS = {
+  edit: `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
+  delete: `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
+  add: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+  drag: `<svg viewBox="0 0 10 16" fill="currentColor"><circle cx="2.5" cy="2" r="1.2"/><circle cx="7.5" cy="2" r="1.2"/><circle cx="2.5" cy="6" r="1.2"/><circle cx="7.5" cy="6" r="1.2"/><circle cx="2.5" cy="10" r="1.2"/><circle cx="7.5" cy="10" r="1.2"/><circle cx="2.5" cy="14" r="1.2"/><circle cx="7.5" cy="14" r="1.2"/></svg>`
+};
+let data=null,isAdmin=false,editingBookmark=null,editingGroup=null,selectedEmoji='📌',dragState=null,activeGroupId=null,navDragState=null;
+const DOM={};
+const FAV_MAP_KEY='starnav_fav_map';
+let faviconMap={};
+
+function initFaviconMap(){try{const cached=localStorage.getItem(FAV_MAP_KEY);if(cached)faviconMap=JSON.parse(cached)}catch(e){}}
+function saveFaviconMap(){try{localStorage.setItem(FAV_MAP_KEY,JSON.stringify(faviconMap))}catch(e){}}
+
+function initDOM(){
+  DOM.body=document.body;
+  DOM.clock=document.getElementById('clock');
+  DOM.clockDate=document.getElementById('clockDate');
+  DOM.sidebar=document.getElementById('sidebar');
+  DOM.sidebarNav=document.getElementById('sidebarNav');
+  DOM.groupsContainer=document.getElementById('groupsContainer');
+  DOM.bgGhibli=document.getElementById('bgGhibli');
+  DOM.bgGhibliImg=document.getElementById('bgGhibliImg');
+  DOM.bgPreview=document.getElementById('bgPreview');
+  DOM.bgPreviewImg=document.getElementById('bgPreviewImg');
+  DOM.bgPreviewLabel=document.getElementById('bgPreviewLabel');
+  DOM.bgThemePicker=document.getElementById('bgThemePicker');
+  DOM.bgThemeOptions=document.getElementById('bgThemeOptions');
+  DOM.bgToggleBtn=document.getElementById('bgToggleBtn');
+  DOM.bgLabel=document.getElementById('bgLabel');
+  DOM.themeLabel=document.getElementById('themeLabel');
+  DOM.toast=document.getElementById('toast');
+  DOM.footerYear=document.getElementById('footerYear');
+  DOM.bookmarkModal=document.getElementById('bookmarkModal');
+  DOM.bookmarkModalTitle=document.getElementById('bookmarkModalTitle');
+  DOM.bmUrl=document.getElementById('bmUrl');
+  DOM.bmName=document.getElementById('bmName');
+  DOM.bmDesc=document.getElementById('bmDesc');
+  DOM.fetchBtn=document.getElementById('fetchBtn');
+  DOM.faviconPreview=document.getElementById('faviconPreview');
+  DOM.groupModal=document.getElementById('groupModal');
+  DOM.groupModalTitle=document.getElementById('groupModalTitle');
+  DOM.groupName=document.getElementById('groupName');
+  DOM.emojiPicker=document.getElementById('emojiPicker');
+  DOM.confirmModal=document.getElementById('confirmModal');
+  DOM.confirmMsg=document.getElementById('confirmMsg');
+  DOM.confirmBtn=document.getElementById('confirmBtn');
+  DOM.loginModal=document.getElementById('loginModal');
+  DOM.loginPassword=document.getElementById('loginPassword');
+}
+
+function defaultData(){return{adminHash:ADMIN_HASH,groups:[{id:genId(),name:'默认',emoji:'📌',bookmarks:[]}]}}
+
+function saveLocal(){
+  if(!data||!data.groups)return false;
+  try{data._ts=Date.now();localStorage.setItem(DATA_KEY,JSON.stringify(data));return true}
+  catch(e){return false}
+}
+
+function save(){
+  if(!saveLocal()){
+    showToast('保存失败：本地存储空间不足，请清理浏览器数据后重试','error');
+  }
+}
+
+async function init(){
+  // 简单字符串哈希，用于比对服务器 JSON 是否发生变化
+  function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0}return h.toString(36);}
+
+  // 1. 检查 localStorage（用户的修改都存在这里）
+  const cached=localStorage.getItem(DATA_KEY);
+  let localData=null;
+  if(cached){
+    try{const d=JSON.parse(cached);if(d&&Array.isArray(d.groups)&&d.groups.length>0)localData=d}catch(e){}
+  }
+
+  // 2. 拉取服务器 JSON
+  let serverData=null;
+  try{
+    const r=await fetch('navpage.json',{cache:'no-cache',headers:{'Cache-Control':'no-cache','Pragma':'no-cache'}});
+    if(r.ok){
+      const j=await r.json();
+      if(j&&Array.isArray(j.groups)&&j.groups.length>0)serverData=j;
+    }
+  }catch(e){
+    console.error('[init] JSON加载失败:',e.message);
+  }
+
+  // 3. 通过内容哈希判断服务器 JSON 是否更新
+  //    - 服务器内容变了 → 以服务器为准（覆盖本地）
+  //    - 服务器内容没变 → 以 localStorage 为准（保留用户在页面上的修改）
+  const storedHash=localStorage.getItem(SERVER_HASH_KEY);
+  const serverHash=serverData?hashStr(JSON.stringify({groups:serverData.groups,adminHash:serverData.adminHash})):null;
+
+  if(localData && serverData && serverHash === storedHash){
+    // 服务器未变化，使用 localStorage（保留用户在页面上的修改）
+    data=localData; console.log('[init] localStorage (server unchanged), groups:'+data.groups.length);
+  }else if(serverData){
+    // 服务器变化了 或 本地无数据 → 使用服务器数据
+    data=serverData; saveLocal();
+    if(serverHash) localStorage.setItem(SERVER_HASH_KEY, serverHash);
+    console.log('[init] server, groups:'+data.groups.length);
+  }else if(localData){
+    // 服务器不可用，使用本地数据兜底
+    data=localData; console.log('[init] localStorage (server unavailable), groups:'+data.groups.length);
+  }else{
+    data=defaultData(); console.log('[init] default, groups:'+data.groups.length);
+  }
+
+  render();
+}
+
+function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function getDomain(url){try{return new URL(url).hostname.replace(/^www\./,'')}catch(e){return url}}
+function escHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function truncate(s,n){return!s?'':s.length>n?s.slice(0,n)+'…':s}
+
+function isAdminLoggedIn(){return sessionStorage.getItem('starnav_admin')==='true'}
+function setAdminState(v){
+  isAdmin=v;
+  if(v){sessionStorage.setItem('starnav_admin','true');document.body.classList.add('admin-mode')}
+  else{sessionStorage.removeItem('starnav_admin');document.body.classList.remove('admin-mode')}
+}
+async function hashPassword(p){
+  const d=new TextEncoder().encode(p+'_starnav_salt_2024'),h=await crypto.subtle.digest('SHA-256',d);
+  return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('')
+}
+function openLoginModal(){
+  if(isAdmin){setAdminState(false);render();showToast('已退出管理员模式','success');return}
+  DOM.loginPassword.value='';
+  DOM.loginModal.classList.add('show');
+  setTimeout(()=>DOM.loginPassword.focus(),100);
+}
+async function doLogin(){
+  const p=DOM.loginPassword.value;
+  if(!p){showToast('请输入密码','error');return}
+  const h=await hashPassword(p);
+  if(h===(data.adminHash||ADMIN_HASH)){
+    setAdminState(true);save();closeModal('loginModal');render();showToast('登录成功','success');
+  }else showToast('密码错误','error');
+}
+
+function getFaviconUrl(url){
+  try{
+    const d=getDomain(url);
+    if(faviconMap[d])return faviconMap[d];
+    return`https://www.google.com/s2/favicons?domain=${d}&sz=32`
+  }catch(e){return''}
+}
+function tryNextFavicon(img){
+  const c=img.parentElement,url=c.dataset.url;
+  if(!url){img.style.display='none';c.innerHTML='<span class="fallback-icon">🔗</span>';return}
+  const fb=[`https://www.google.com/s2/favicons?domain=${getDomain(url)}&sz=32`,`https://icons.duckduckgo.com/ip3/${getDomain(url)}.ico`,`https://${getDomain(url)}/favicon.ico`],step=parseInt(img.dataset.fbStep||'0'),next=step+1;
+  if(next<fb.length){img.dataset.fbStep=next;img.src=fb[next]}
+  else{img.style.display='none';c.innerHTML='<span class="fallback-icon">🔗</span>'}
+}
+function onFaviconSuccess(img){
+  try{
+    const c=img.parentElement,url=c.dataset.url;
+    if(url){
+      const d=getDomain(url);
+      if(d&&!faviconMap[d]&&img.src&&img.src!==`https://${d}/favicon.ico` && !img.src.includes('data:image')){
+        faviconMap[d]=img.src;
+        saveFaviconMap();
+      }
+    }
+  }catch(e){}
+}
+
+function extractFaviconFromHtml(html,origin){
+  const p=new DOMParser().parseFromString(html,'text/html');
+  const s=['link[rel="icon"][type="image/svg+xml"]','link[rel="icon"][sizes="192x192"]','link[rel="icon"][sizes="180x180"]','link[rel="apple-touch-icon"]','link[rel="apple-touch-icon-precomposed"]','link[rel="icon"]','link[rel="shortcut icon"]'];
+  for(const sel of s){const el=p.querySelector(sel);if(el&&el.getAttribute('href')){let h=el.getAttribute('href');if(h.startsWith('//'))h='https:'+h;else if(h.startsWith('/'))h=origin+h;else if(!h.startsWith('http'))h=origin+'/'+h;return h}}
+  return'';
+}
+function extractTitleFromHtml(html){
+  const p=new DOMParser().parseFromString(html,'text/html');
+  let t=p.querySelector('meta[property="og:site_name"]')?.content?.trim();if(t)return cleanTitle(t);
+  t=p.querySelector('meta[property="og:title"]')?.content?.trim();if(t)return cleanTitle(t);
+  t=p.querySelector('title')?.textContent?.trim();if(t)return cleanTitle(t);
+  t=p.querySelector('meta[name="application-name"]')?.content?.trim();if(t)return cleanTitle(t);
+  return'';
+}
+function cleanTitle(t){
+  if(!t)return'';t=t.trim();
+  for(const s of[' - 首页',' - 登录',' - 注册',' - 官方网站',' - 官网','—首页','—登录','_首页','_登录','|首页','|登录'])if(t.endsWith(s))t=t.slice(0,-s.length).trim();
+  t=t.replace(/[-_|–—]\s?.{0,40}$/,'').trim();t=t.replace(/[「」【】]/g,'').trim();return t.replace(/\s+/g,' ').trim();
+}
+function getCachedSiteInfo(d){try{const r=localStorage.getItem(CACHE_PREFIX+d);if(!r)return null;const c=JSON.parse(r);if(Date.now()-c.timestamp>CACHE_EXPIRE){localStorage.removeItem(CACHE_PREFIX+d);return null}return c}catch(e){return null}}
+function setCachedSiteInfo(d,i){try{localStorage.setItem(CACHE_PREFIX+d,JSON.stringify({...i,timestamp:Date.now()}))}catch(e){}}
+
+async function fetchWithProxy(proxy,target){
+  try{const r=await fetch(proxy+encodeURIComponent(target),{signal:AbortSignal.timeout(8000),headers:{'Accept':'text/html','Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8'}});if(r.ok){const t=await r.text();if(t.length>100)return t}}catch(e){}
+  return'';
+}
+async function fetchSiteInfo(){
+  const urlInput=DOM.bmUrl;let url=urlInput.value.trim();if(!url)return;
+  if(!/^https?:\/\//i.test(url)){url='https://'+url;urlInput.value=url}
+  const fetchBtn=DOM.fetchBtn,domain=getDomain(url);
+  fetchBtn.disabled=true;fetchBtn.innerHTML='<span class="loading-spinner"></span>';
+  updateFaviconPreview(getFaviconUrl(url));
+  let title='',faviconUrl='';
+  const cached=getCachedSiteInfo(domain);
+  if(cached){title=cached.title||'';faviconUrl=cached.favicon||'';if(faviconUrl)updateFaviconPreview(faviconUrl);if(title)DOM.bmName.value=title;fetchBtn.disabled=false;fetchBtn.textContent='自动获取';return}
+  const proxies=[`https://api.allorigins.win/raw?url=`,`https://corsproxy.io/?url=`,`https://api.codetabs.com/v1/proxy?quest=`];
+  const results=await Promise.allSettled(proxies.map(p=>fetchWithProxy(p,url)));
+  let bestHtml='';for(const r of results)if(r.status==='fulfilled'&&r.value&&r.value.length>bestHtml.length)bestHtml=r.value;
+  if(bestHtml.length>100){const u=new URL(url);faviconUrl=extractFaviconFromHtml(bestHtml,u.origin);title=extractTitleFromHtml(bestHtml);if(faviconUrl)updateFaviconPreview(faviconUrl);setCachedSiteInfo(domain,{title,favicon:faviconUrl})}
+  DOM.bmName.value=title||domain;fetchBtn.disabled=false;fetchBtn.textContent='自动获取';
+}
+function updateFaviconPreview(u){const p=DOM.faviconPreview;if(u)p.innerHTML=`<img src="${u}" alt="" onerror="this.style.display='none'"><span style="display:none;color:var(--text-muted)">无法加载</span>`}
+let fetchTimeout=null;
+function onUrlInput(){clearTimeout(fetchTimeout);const u=DOM.bmUrl.value.trim();if(u&&/^https?:\/\//i.test(u))updateFaviconPreview(getFaviconUrl(u));fetchTimeout=setTimeout(()=>{if(u.length>5)fetchSiteInfo()},1200)}
+
+function toggleTheme(){const h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem(THEME_KEY,n);updateThemeLabel();updateBgImage()}
+function updateThemeLabel(){DOM.themeLabel.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'日间模式':'夜间模式'}
+function initTheme(){const s=localStorage.getItem(THEME_KEY);if(s)document.documentElement.setAttribute('data-theme',s);updateThemeLabel()}
+
+const BG_THEMES=[
+  {name:'乡村',day:'Studio Ghibli anime style, bright sunny countryside landscape, rolling green hills with wildflowers, fluffy white clouds in blue sky, peaceful rural scenery, watercolor painting, soft warm lighting, vibrant colors',night:'Studio Ghibli anime style, starry night sky with crescent moon, quiet Japanese village with warm lights, soft moonlight reflecting on river, fireflies glowing in the dark, dark blue purple atmosphere, watercolor painting, dreamy and peaceful'},
+  {name:'海洋',day:'Studio Ghibli anime style, bright seaside cliff overlooking turquoise ocean, gentle waves crashing on rocks, seagulls flying, lighthouse in distance, clear blue sky, watercolor painting, warm sunlight, peaceful coastal scenery',night:'Studio Ghibli anime style, moonlit ocean at night, silver moonlight path on calm water, distant lighthouse beam, stars reflected on sea surface, bioluminescent plankton glowing on shore, dark blue ocean, watercolor painting, serene and mystical'},
+  {name:'森林',day:'Studio Ghibli anime style, enchanted forest with sunlight filtering through tall ancient trees, mossy ground with mushrooms and small flowers, gentle stream, butterflies and forest spirits, watercolor painting, dappled light, lush green',night:'Studio Ghibli anime style, mystical forest at night, glowing fireflies among ancient trees, bioluminescent mushrooms on forest floor, moonlight through canopy, small forest spirits with lanterns, deep blue emerald atmosphere, watercolor painting, magical and tranquil'},
+  {name:'天空',day:'Studio Ghibli anime style, floating islands in bright blue sky, waterfalls cascading from clouds, airships sailing between peaks, lush gardens on floating rocks, cotton candy clouds, golden sunlight, watercolor painting, adventurous and whimsical',night:'Studio Ghibli anime style, floating islands under starlit sky, aurora borealis over cloud cities, glowing crystals on floating rocks, airship with warm cabin lights, shooting stars, deep purple teal atmosphere, watercolor painting, dreamlike and wondrous'},
+  {name:'花园',day:'Studio Ghibli anime style, secret garden in full bloom, cherry blossom trees, rose archways, stone path leading to cottage, butterflies and hummingbirds, morning dew on petals, warm golden sunlight, watercolor painting, romantic and idyllic',night:'Studio Ghibli anime style, magical garden at night, glowing flowers and lanterns hanging from trees, moonlit fountain with koi fish, fireflies among night-blooming jasmine, fairy lights along stone path, deep indigo warm amber atmosphere, watercolor painting, enchanting and cozy'},
+  {name:'古镇',day:'Studio Ghibli anime style, traditional Japanese town street in morning, wooden machiya houses with sliding doors, stone bridge over canal, red torii gate, shop curtains swaying in breeze, clear sky, warm sunlight, watercolor painting, nostalgic and serene',night:'Studio Ghibli anime style, traditional Japanese town at night, warm paper lanterns lining narrow street, cherry petals floating in canal, glowing windows of tea houses, moon above tiled rooftops, soft rain reflections on cobblestone, deep blue amber atmosphere, watercolor painting, atmospheric and poetic'},
+  {name:'雪景',day:'Studio Ghibli anime style, snowy mountain village in winter morning, wooden cabins with smoke from chimneys, frozen lake reflecting pale blue sky, snow-covered pine trees, children building snowman, crisp white and ice blue, watercolor painting, pure and tranquil',night:'Studio Ghibli anime style, snowy village at night, warm cabin windows glowing through snowfall, northern lights dancing above mountains, frozen lake reflecting aurora, snow-laden rooftops, deep navy and emerald atmosphere, watercolor painting, silent and magical'},
+  {name:'铁道',day:'Studio Ghibli anime style, countryside railway station in golden afternoon, steam train arriving on tracks, wildflowers along railway, distant mountains under blue sky, vintage station clock, warm sunlight and long shadows, watercolor painting, adventurous and nostalgic',night:'Studio Ghibli anime style, railway station at night, steam train with warm cabin lights, platform lanterns glowing in fog, moonlight on steel tracks, stars above distant mountains, deep blue and warm orange atmosphere, watercolor painting, mysterious and wanderlust'},
+];
+const BG_API='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image';
+function getBgThemeIdx(){const i=parseInt(localStorage.getItem(BG_THEME_KEY));return isNaN(i)||i<0||i>=BG_THEMES.length?0:i}
+function isBgImageActive(){return localStorage.getItem(BG_KEY)==='true'}
+function getBgImageUrl(isDark){const t=BG_THEMES[getBgThemeIdx()];return BG_API+'?prompt='+encodeURIComponent(isDark?t.night:t.day)+'&image_size=landscape_16_9'}
+function toggleBgImage(){
+  if(isBgImageActive()){localStorage.setItem(BG_KEY,'false');DOM.body.classList.remove('bg-image-active');DOM.bgGhibli.classList.remove('active');DOM.bgPreview.classList.remove('active');DOM.bgThemePicker.classList.remove('active');updateBgButton()}
+  else{localStorage.setItem(BG_KEY,'true');DOM.body.classList.add('bg-image-active');updateBgImage(true);updateBgButton()}
+}
+function updateBgImage(showLoading){
+  const bgEl=DOM.bgGhibli,img=DOM.bgGhibliImg,preview=DOM.bgPreview,previewImg=DOM.bgPreviewImg,previewLabel=DOM.bgPreviewLabel;
+  if(!isBgImageActive()){bgEl.classList.remove('active');preview.classList.remove('active');return}
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark',theme=BG_THEMES[getBgThemeIdx()],url=getBgImageUrl(isDark);
+  if(previewLabel)previewLabel.textContent=theme.name+' · '+(isDark?'夜间':'日间');
+  DOM.bgThemePicker.classList.add('active');renderBgThemePicker();
+  if(showLoading){const btn=DOM.bgToggleBtn;if(btn)btn.disabled=true;const label=DOM.bgLabel;if(label)label.innerHTML='<span class="loading-spinner"></span>'}
+  const preload=new Image();
+  preload.onload=()=>{img.src=url;bgEl.classList.add('active');previewImg.src=url;preview.classList.add('active');if(showLoading){const btn=DOM.bgToggleBtn;if(btn)btn.disabled=false;updateBgButton()}};
+  preload.onerror=()=>{if(showLoading){const btn=DOM.bgToggleBtn;if(btn)btn.disabled=false;updateBgButton();showToast('背景图加载失败','error')}};
+  preload.src=url;
+}
+function renderBgThemePicker(){const c=DOM.bgThemeOptions;if(!c)return;const ci=getBgThemeIdx();c.innerHTML=BG_THEMES.map((t,i)=>`<button class="bg-theme-opt${i===ci?' selected':''}" onclick="selectBgTheme(${i})">${t.name}</button>`).join('')}
+function selectBgTheme(i){localStorage.setItem(BG_THEME_KEY,String(i));updateBgImage(true);renderBgThemePicker()}
+function updateBgButton(){const label=DOM.bgLabel;if(!label)return;label.textContent=isBgImageActive()?'关闭':'背景';const btn=DOM.bgToggleBtn;if(btn)btn.style.color=isBgImageActive()?'var(--accent-light)':''}
+
+function render(){renderClock();renderSidebar();renderGroups()}
+function renderClock(){
+  const now=new Date(),h=String(now.getHours()).padStart(2,'0'),m=String(now.getMinutes()).padStart(2,'0');
+  DOM.clock.textContent=`${h}:${m}`;
+  const wd=['日','一','二','三','四','五','六'];
+  DOM.clockDate.textContent=`${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 星期${wd[now.getDay()]}`;
+}
+function renderSidebar(){
+  const nav=DOM.sidebarNav;
+  let html=data.groups.map((g,i)=>`
+    <button class="nav-item ${activeGroupId===g.id?'active':''}" onclick="scrollToGroup('${g.id}')"
+      draggable="${isAdmin?'true':'false'}"
+      ${isAdmin?`ondragstart="onNavDragStart(event,'${g.id}')"`:''}
+      ${isAdmin?`ondragover="onNavDragOver(event)"`:''}
+      ${isAdmin?`ondrugenter="onNavDragEnter(event)"`:''}
+      ${isAdmin?`ondrop="onNavDrop(event,'${g.id}')"`:''}
+      ${isAdmin?`ondragend="onNavDragEnd(event)"`:''}>
+      <span class="nav-item-icon nav-color-${i%6}">${g.emoji}</span>
+      <span class="nav-item-name">${escHtml(g.name)}</span>
+      <span class="nav-item-count">${g.bookmarks.length}</span>
+      ${isAdmin?`<span class="nav-drag-handle" onclick="event.stopPropagation()">${SVG_ICONS.drag}</span>`:''}
+    </button>`).join('');
+  if(isAdmin)html+=`<button class="nav-add-group" onclick="openGroupModal()">${SVG_ICONS.add}添加分组</button>`;
+  nav.innerHTML=html;
+}
+function scrollToGroup(id){activeGroupId=id;const el=document.getElementById('group-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});renderSidebar();DOM.sidebar.classList.remove('open')}
+function renderGroups(){
+  const admin=isAdmin,container=DOM.groupsContainer;
+  container.innerHTML=data.groups.map((group,gi)=>`
+    <div class="group group-color-${gi%6}" id="group-${group.id}" data-group-id="${group.id}">
+      <div class="group-header">
+        <div class="group-title-wrap">
+          <div class="group-icon">${group.emoji}</div>
+          <div class="group-title">${escHtml(group.name)}</div>
+        </div>
+        ${admin?`<div class="group-actions">
+          <button onclick="openBookmarkModal('${group.id}')" title="添加网站">${SVG_ICONS.add}</button>
+          <button onclick="openGroupModal('${group.id}')" title="编辑分组">${SVG_ICONS.edit}</button>
+          <button onclick="confirmDeleteGroup('${group.id}')" title="删除分组">${SVG_ICONS.delete}</button>
+        </div>`:''}
+      </div>
+      <div class="bookmarks-grid">
+        ${group.bookmarks.map(bm=>`
+          <a class="bookmark-card" href="${escAttr(bm.url)}" target="_blank" rel="noopener"
+             data-bookmark-id="${bm.id}" data-group-id="${group.id}"
+             ${admin?'draggable="true"':''} ${admin?`ondragstart="onDragStart(event,'${group.id}','${bm.id}')"`:''}
+             ondragover="onDragOver(event)" ondragenter="onDragEnter(event)" ondragleave="onDragLeave(event)"
+             ${admin?`ondrop="onDrop(event,'${group.id}','${bm.id}')"`:''} ondragend="onDragEnd(event)">
+            ${admin?`
+            <button class="bookmark-edit" onclick="event.preventDefault();openBookmarkModal('${group.id}','${bm.id}')" title="编辑">${SVG_ICONS.edit}</button>
+            <button class="bookmark-delete" onclick="event.preventDefault();confirmDeleteBookmark('${group.id}','${bm.id}')" title="删除">${SVG_ICONS.delete}</button>`:''}
+            <div class="bookmark-favicon" data-url="${escAttr(bm.url)}"><img src="${escAttr(bm.favicon||getFaviconUrl(bm.url))}" loading="lazy" decoding="async" alt="" onload="onFaviconSuccess(this)" onerror="tryNextFavicon(this)"></div>
+            <div class="bookmark-info">
+              <div class="bookmark-name">${escHtml(truncate(bm.name,40))}</div>
+              ${bm.desc?`<div class="bookmark-desc">${escHtml(truncate(bm.desc,40))}</div>`:''}
+            </div>
+          </a>`).join('')}
+      </div>
+    </div>`).join('');
+  if(!data.groups.length&&admin)container.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:40px">暂无分组，点击左侧"添加分组"开始</p>';
+}
+
+function openBookmarkModal(groupId,bookmarkId){
+  if(!isAdmin)return;editingBookmark=bookmarkId?{groupId,bookmarkId}:{groupId,bookmarkId:null};
+  if(bookmarkId){const g=data.groups.find(g=>g.id===groupId),bm=g?.bookmarks.find(b=>b.id===bookmarkId);
+    if(bm){DOM.bookmarkModalTitle.textContent='编辑书签';DOM.bmUrl.value=bm.url;DOM.bmName.value=bm.name;DOM.bmDesc.value=bm.desc||'';updateFaviconPreview(bm.favicon||getFaviconUrl(bm.url))}
+  }else{DOM.bookmarkModalTitle.textContent='添加书签';DOM.bmUrl.value='';DOM.bmName.value='';DOM.bmDesc.value='';DOM.faviconPreview.innerHTML='<span style="color:var(--text-muted)">输入网址后自动获取</span>'}
+  DOM.bookmarkModal.classList.add('show');setTimeout(()=>DOM.bmUrl.focus(),100);
+}
+function saveBookmark(){
+  const url=DOM.bmUrl.value.trim(),name=DOM.bmName.value.trim(),desc=DOM.bmDesc.value.trim();
+  if(!url){showToast('请输入网址','error');return}
+  const fUrl=/^https?:\/\//i.test(url)?url:'https://'+url,fName=name||getDomain(fUrl),favicon=getFaviconUrl(fUrl);
+  const group=data.groups.find(g=>g.id===editingBookmark.groupId);if(!group)return;
+  if(editingBookmark.bookmarkId){const bm=group.bookmarks.find(b=>b.id===editingBookmark.bookmarkId);if(bm){bm.url=fUrl;bm.name=fName;bm.desc=desc;bm.favicon=favicon}}
+  else group.bookmarks.push({id:genId(),name:fName,url:fUrl,favicon,desc});
+  save();render();closeModal('bookmarkModal');showToast(editingBookmark.bookmarkId?'书签已更新':'书签已添加','success');
+}
+function openGroupModal(groupId){
+  if(!isAdmin)return;editingGroup=groupId||null;renderEmojiPicker();
+  if(groupId){const g=data.groups.find(g=>g.id===groupId);if(g){DOM.groupModalTitle.textContent='编辑分组';DOM.groupName.value=g.name;selectedEmoji=g.emoji;renderEmojiPicker()}}
+  else{DOM.groupModalTitle.textContent='添加分组';DOM.groupName.value='';selectedEmoji='📌';renderEmojiPicker()}
+  DOM.groupModal.classList.add('show');setTimeout(()=>DOM.groupName.focus(),100);
+}
+function renderEmojiPicker(){DOM.emojiPicker.innerHTML=EMOJIS.map(e=>`<button class="emoji-option ${e===selectedEmoji?'active':''}" onclick="selectEmoji('${e}')">${e}</button>`).join('')}
+function selectEmoji(e){selectedEmoji=e;renderEmojiPicker()}
+function saveGroup(){
+  const name=DOM.groupName.value.trim();if(!name){showToast('请输入分组名称','error');return}
+  if(editingGroup){const g=data.groups.find(g=>g.id===editingGroup);if(g){g.name=name;g.emoji=selectedEmoji}}
+  else data.groups.push({id:genId(),name,emoji:selectedEmoji,bookmarks:[]});
+  save();render();closeModal('groupModal');showToast(editingGroup?'分组已更新':'分组已添加','success');
+}
+function confirmDeleteGroup(id){
+  if(!isAdmin)return;const g=data.groups.find(g=>g.id===id);if(!g)return;
+  DOM.confirmMsg.textContent=`确定要删除分组"${g.name}"及其所有书签吗？`;
+  DOM.confirmBtn.onclick=()=>{data.groups=data.groups.filter(g=>g.id!==id);save();render();closeModal('confirmModal');showToast('分组已删除','success')};
+  DOM.confirmModal.classList.add('show');
+}
+function confirmDeleteBookmark(gid,bid){
+  if(!isAdmin)return;const g=data.groups.find(g=>g.id===gid),bm=g?.bookmarks.find(b=>b.id===bid);if(!bm)return;
+  DOM.confirmMsg.textContent=`确定要删除书签"${bm.name}"吗？`;
+  DOM.confirmBtn.onclick=()=>{g.bookmarks=g.bookmarks.filter(b=>b.id!==bid);save();render();closeModal('confirmModal');showToast('书签已删除','success')};
+  DOM.confirmModal.classList.add('show');
+}
+
+function onDragStart(e,gid,bid){if(!isAdmin){e.preventDefault();return}dragState={fromGroupId:gid,bookmarkId:bid};e.dataTransfer.effectAllowed='move';e.target.classList.add('dragging')}
+function onDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move'}
+function onDragEnter(e){e.preventDefault();const c=e.target.closest('.bookmark-card');if(c)c.classList.add('drag-over')}
+function onDragLeave(e){const c=e.target.closest('.bookmark-card');if(c)c.classList.remove('drag-over')}
+function onDrop(e,tgid,tbid){
+  e.preventDefault();const c=e.target.closest('.bookmark-card');if(c)c.classList.remove('drag-over');
+  if(!dragState||!isAdmin)return;const{fromGroupId,bookmarkId}=dragState;
+  if(fromGroupId===tgid&&bookmarkId===tbid)return;
+  const fg=data.groups.find(g=>g.id===fromGroupId),tg=data.groups.find(g=>g.id===tgid);if(!fg||!tg)return;
+  const bi=fg.bookmarks.findIndex(b=>b.id===bookmarkId);if(bi===-1)return;
+  const[bm]=fg.bookmarks.splice(bi,1);const ti=tg.bookmarks.findIndex(b=>b.id===tbid);tg.bookmarks.splice(ti,0,bm);
+  save();render();dragState=null;
+}
+function onDragEnd(e){e.target.classList.remove('dragging');document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));dragState=null}
+function onNavDragStart(e,id){if(!isAdmin){e.preventDefault();return}navDragState=id;e.dataTransfer.effectAllowed='move';e.target.classList.add('dragging')}
+function onNavDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move'}
+function onNavDragEnter(e){e.preventDefault()}
+function onNavDrop(e,targetId){e.preventDefault();if(!navDragState||!isAdmin||navDragState===targetId)return;const si=data.groups.findIndex(g=>g.id===navDragState),ti=data.groups.findIndex(g=>g.id===targetId);if(si===-1||ti===-1)return;const[gp]=data.groups.splice(si,1);data.groups.splice(ti,0,gp);save();render();navDragState=null}
+function onNavDragEnd(e){e.target.classList.remove('dragging');navDragState=null}
+
+function exportData(){
+  if(!isAdmin)return;
+  const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download='navpage.json';a.click();URL.revokeObjectURL(u);showToast('已下载 navpage.json，上传到服务器覆盖即可','success');
+}
+function importData(event){
+  if(!isAdmin)return;const f=event.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=e=>{
+    try{
+      const imp=JSON.parse(e.target.result);
+      if(imp.groups&&Array.isArray(imp.groups)){data.groups=imp.groups;if(imp.adminHash)data.adminHash=imp.adminHash;if(imp._ts)data._ts=imp._ts;save();render();showToast('已导入 '+imp.groups.length+' 个分组','success')}
+      else showToast('文件格式不正确，需包含groups数组','error');
+    }catch(err){showToast('导入失败：无法解析文件','error')}
+  };r.readAsText(f);event.target.value='';
+}
+
+function closeModal(id){DOM[id].classList.remove('show')}
+function showToast(msg,type=''){const t=DOM.toast;t.textContent=msg;t.className='toast'+(type?' '+type:'');requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>t.classList.remove('show'),2500)}
+
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show')}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-overlay.show').forEach(m=>m.classList.remove('show'))});
+
+initDOM();
+initFaviconMap();
+initTheme();
+if(isAdminLoggedIn())setAdminState(true);
+if(isBgImageActive())DOM.body.classList.add('bg-image-active');
+updateBgButton();
+DOM.footerYear.textContent=new Date().getFullYear();
+init();
+setInterval(renderClock,1000);
+console.log('E家导航 | 启动方式: python3 -m http.server 8080 或 npx serve .');
+</script>
+</body>
+</html>

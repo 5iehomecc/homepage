@@ -1,0 +1,117 @@
+{
+  "adminHash": "44f61792d66021c0030fa37dca5162871345c525f61984b88fa1af16d8117672",
+  "groups": [
+    {
+      "id": "mp6xdgety2e0h",
+      "name": "常用",
+      "emoji": "📌",
+      "bookmarks": [
+        {
+          "id": "mp6xdgetveppy",
+          "name": "GitHub",
+          "url": "https://github.com",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgetwu1vf",
+          "name": "Google",
+          "url": "https://google.com",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgetz7mxj",
+          "name": "YouTube",
+          "url": "https://youtube.com",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgetygw7v",
+          "name": "知乎",
+          "url": "https://zhihu.com",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgetkhima",
+          "name": "微博",
+          "url": "https://weibo.com",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgettt4fx",
+          "name": "Bilibili",
+          "url": "https://bilibili.com",
+          "favicon": ""
+        }
+      ]
+    },
+    {
+      "id": "mp6xdvs9njpc2",
+      "name": "wewe",
+      "emoji": "📌",
+      "bookmarks": []
+    },
+    {
+      "id": "mp6xdgetx2e7k",
+      "name": "工具",
+      "emoji": "🔧",
+      "bookmarks": [
+        {
+          "id": "mp6xdgetr4wwg",
+          "name": "ChatGPT",
+          "url": "https://chat.openai.com",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgetbsopv",
+          "name": "Notion",
+          "url": "https://notion.so",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgetonm6q",
+          "name": "Figma",
+          "url": "https://figma.com",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdget6lp2t",
+          "name": "Can I Use",
+          "url": "https://caniuse.com",
+          "favicon": ""
+        }
+      ]
+    },
+    {
+      "id": "mp6xdgetm3plc",
+      "name": "学习",
+      "emoji": "📚",
+      "bookmarks": [
+        {
+          "id": "mp6xdgeto2st2",
+          "name": "MDN",
+          "url": "https://developer.mozilla.org",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgetfmb8o",
+          "name": "Stack Overflow",
+          "url": "https://stackoverflow.com",
+          "favicon": ""
+        },
+        {
+          "id": "mp6xdgetqg1j0",
+          "name": "LeetCode",
+          "url": "https://leetcode.cn",
+          "favicon": ""
+        }
+      ]
+    },
+    {
+      "id": "mp6xdtwm6et0w",
+      "name": "tsatr",
+      "emoji": "📷",
+      "bookmarks": []
+    }
+  ],
+  "_ts": 1778850042754
+}

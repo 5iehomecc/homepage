@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E家主页搭建物语 — 漫画版</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap');
+
+:root {
+  --ink: #1a1a2e;
+  --paper: #f5f0e8;
+  --accent-cyan: #00f2ff;
+  --accent-purple: #bc13fe;
+  --accent-pink: #ff6b9d;
+  --accent-yellow: #ffd93d;
+  --border-w: 4px;
+  --panel-gap: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--paper);
+  font-family: 'Noto Sans SC', sans-serif;
+  color: var(--ink);
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.manga-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title-banner {
+  text-align: center;
+  padding: 40px 20px 30px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.title-banner h1 {
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--ink);
+  text-shadow:
+    3px 3px 0 var(--accent-cyan),
+    6px 6px 0 var(--accent-purple);
+  letter-spacing: 0.05em;
+  transform: rotate(-1deg);
+}
+
+.title-banner .subtitle {
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  color: #666;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.title-banner::after {
+  content: '';
+  display: block;
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--ink), transparent);
+  margin: 20px auto 0;
+}
+
+.manga-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--panel-gap);
+}
+
+.panel {
+  position: relative;
+  border: var(--border-w) solid var(--ink);
+  background: #fff;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.panel:hover {
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+.panel.wide {
+  grid-column: 1 / -1;
+}
+
+.panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.panel-inner {
+  position: relative;
+  width: 100%;
+}
+
+.chapter-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--ink);
+  color: #fff;
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-size: clamp(0.7rem, 2vw, 0.95rem);
+  padding: 4px 14px;
+  z-index: 5;
+  letter-spacing: 0.05em;
+}
+
+.chapter-label .ch-num {
+  color: var(--accent-yellow);
+  margin-right: 4px;
+}
+
+.speech-bubble {
+  position: absolute;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+  font-weight: 700;
+  z-index: 5;
+  max-width: 55%;
+  line-height: 1.4;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 14px solid var(--ink);
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 22px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid #fff;
+  z-index: 1;
+}
+
+.speech-bubble.right {
+  right: 10px;
+  left: auto;
+}
+
+.speech-bubble.right::after {
+  left: auto;
+  right: 20px;
+}
+
+.speech-bubble.right::before {
+  left: auto;
+  right: 22px;
+}
+
+.speech-bubble.top {
+  top: 10px;
+}
+
+.speech-bubble.bottom {
+  bottom: 10px;
+}
+
+.sfx {
+  position: absolute;
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  z-index: 5;
+  transform: rotate(-12deg);
+  text-shadow:
+    2px 2px 0 #fff,
+    -2px -2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px 2px 0 #fff;
+  pointer-events: none;
+}
+
+.sfx.cyan { color: var(--accent-cyan); }
+.sfx.purple { color: var(--accent-purple); }
+.sfx.pink { color: var(--accent-pink); }
+.sfx.yellow { color: var(--accent-yellow); }
+
+.narrative-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(26,26,46,0.85));
+  color: #fff;
+  padding: 30px 16px 14px;
+  font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+  line-height: 1.6;
+  z-index: 4;
+}
+
+.narrative-box .tech-tag {
+  display: inline-block;
+  background: rgba(0,242,255,0.2);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.75em;
+  margin: 2px 2px;
+  white-space: nowrap;
+}
+
+.ending-panel {
+  text-align: center;
+  padding: 50px 20px;
+  background: var(--ink);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.ending-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(0,242,255,0.15), transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(188,19,254,0.15), transparent 50%);
+}
+
+.ending-panel h2 {
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  position: relative;
+  text-shadow: 0 0 20px var(--accent-cyan), 0 0 40px var(--accent-purple);
+}
+
+.ending-panel p {
+  position: relative;
+  margin-top: 16px;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  opacity: 0.8;
+}
+
+.ending-panel .url {
+  position: relative;
+  display: inline-block;
+  margin-top: 20px;
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--accent-cyan);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent-cyan);
+  padding-bottom: 4px;
+}
+
+.speed-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.15;
+  background: repeating-conic-gradient(
+    var(--ink) 0deg 1deg,
+    transparent 1deg 10deg
+  ) center / cover;
+}
+
+.halftone {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.05;
+  background-image: radial-gradient(circle, var(--ink) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+@keyframes float-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel {
+  animation: float-in 0.6s ease both;
+}
+
+.panel:nth-child(1) { animation-delay: 0.1s; }
+.panel:nth-child(2) { animation-delay: 0.2s; }
+.panel:nth-child(3) { animation-delay: 0.3s; }
+.panel:nth-child(4) { animation-delay: 0.4s; }
+.panel:nth-child(5) { animation-delay: 0.5s; }
+.panel:nth-child(6) { animation-delay: 0.6s; }
+.panel:nth-child(7) { animation-delay: 0.7s; }
+.panel:nth-child(8) { animation-delay: 0.8s; }
+.panel:nth-child(9) { animation-delay: 0.9s; }
+
+@media (max-width: 600px) {
+  .manga-grid {
+    grid-template-columns: 1fr;
+  }
+  .panel.wide {
+    grid-column: 1;
+  }
+  .speech-bubble {
+    max-width: 70%;
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+  .sfx {
+    font-size: 1.5rem;
+  }
+}
+
+.page-footer {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 0.85rem;
+  color: #999;
+  border-top: 2px solid rgba(0,0,0,0.1);
+  margin-top: 30px;
+}
+</style>
+</head>
+<body>
+<div class="manga-page">
+
+  <div class="title-banner">
+    <h1>E家主页搭建物语</h1>
+    <div class="subtitle">— 从零到一的奇幻冒险 —</div>
+  </div>
+
+  <div class="manga-grid">
+
+    <!-- Panel 1: 序章 -->
+    <div class="panel wide">
+      <div class="panel-inner">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=manga%20illustration%20black%20and%20white%20with%20color%20accents%2C%20young%20programmer%20sitting%20at%20desk%20coding%20on%20laptop%20at%20night%2C%20dark%20room%20illuminated%20by%20neon%20blue%20screen%20glow%2C%20determined%20focused%20expression%2C%20comic%20panel%2C%20detailed%20linework%2C%20dark%20atmosphere%20with%20cyan%20light%20accents%2C%20professional%20manga%20artwork&image_size=landscape_16_9" alt="序章：起航" loading="lazy">
+        <div class="halftone"></div>
+        <div class="chapter-label"><span class="ch-num">PROLOGUE</span> 序章·起航</div>
+        <div class="speech-bubble top">一切伟大的项目，都从一个深夜的灵感开始…</div>
+        <div class="sfx cyan" style="top:15%;right:8%;transform:rotate(8deg);">💡</div>
+        <div class="narrative-box">
+          在一个寂静的深夜，一位开发者打开编辑器，决心打造属于自己的个人主页。<br>
+          <span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 2: 星空与猫咪 -->
+    <div class="panel">
+      <div class="panel-inner">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=manga%20illustration%20black%20and%20white%20with%20color%20accents%2C%20cute%20pixel%20cat%20character%20walking%20on%20a%20computer%20screen%2C%20twinkling%20stars%20scattered%20across%20dark%20background%2C%20magical%20sparkles%20around%20the%20cat%2C%20comic%20panel%2C%20dark%20theme%20with%20cyan%20and%20purple%20light%2C%20kawaii%20style%2C%20detailed%20manga%20art&image_size=portrait_4_3" alt="星空与猫咪" loading="lazy">
+        <div class="halftone"></div>
+        <div class="chapter-label"><span class="ch-num">CH.1</span> 星空与猫咪</div>
+        <div class="speech-bubble bottom right">喵~ 我来陪你写代码！</div>
+        <div class="sfx purple" style="top:20%;left:5%;transform:rotate(-15deg);">✨</div>
+        <div class="narrative-box">
+          Canvas 星空背景 + 像素猫 oneko 跟随鼠标<br>
+          <span class="tech-tag">Canvas 2D</span><span class="tech-tag">requestAnimationFrame</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: 仙女棒 -->
+    <div class="panel">
+      <div class="panel-inner">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=manga%20illustration%20black%20and%20white%20with%20color%20accents%2C%20hand%20waving%20leaving%20sparkling%20cyan%20and%20purple%20particle%20trail%20like%20magic%20fairy%20dust%2C%20fantasy%20magic%20effect%2C%20comic%20panel%2C%20dark%20background%2C%20dynamic%20motion%20lines%2C%20detailed%20manga%20art%2C%20glowing%20particles&image_size=portrait_4_3" alt="仙女棒效果" loading="lazy">
+        <div class="halftone"></div>
+        <div class="chapter-label"><span class="ch-num">CH.2</span> 仙女棒</div>
+        <div class="speech-bubble top">挥动鼠标，释放魔法！</div>
+        <div class="sfx pink" style="bottom:25%;right:5%;transform:rotate(10deg);">💫</div>
+        <div class="narrative-box">
+          鼠标移动产生青紫双色粒子拖尾<br>
+          <span class="tech-tag">粒子系统</span><span class="tech-tag">渐变消散</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 4: 架构重生 -->
+    <div class="panel wide">
+      <div class="panel-inner">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=manga%20illustration%20black%20and%20white%20with%20color%20accents%2C%20architectural%20blueprint%20being%20reconstructed%20with%20gears%20and%20code%20symbols%20floating%2C%20building%20blocks%20reorganizing%20into%20new%20structure%2C%20transformation%20scene%2C%20comic%20panel%2C%20dark%20theme%20with%20neon%20accents%2C%20technical%20manga%20style&image_size=landscape_16_9" alt="架构重生" loading="lazy">
+        <div class="halftone"></div>
+        <div class="speed-lines"></div>
+        <div class="chapter-label"><span class="ch-num">CH.3</span> 架构重生</div>
+        <div class="speech-bubble top right">重构！让代码像齿轮一样精密运转！</div>
+        <div class="sfx yellow" style="top:30%;left:5%;transform:rotate(-8deg);">⚙️</div>
+        <div class="narrative-box">
+          插件注册架构 App.register() + CSS 设计令牌 + 六层分层系统<br>
+          <span class="tech-tag">Design Tokens</span><span class="tech-tag">CSS Layers</span><span class="tech-tag">Plugin Pattern</span><span class="tech-tag">Critical CSS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 5: 视觉魔法 -->
+    <div class="panel">
+      <div class="panel-inner">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=manga%20illustration%20black%20and%20white%20with%20color%20accents%2C%20glowing%20glass%20card%20with%20rotating%20colorful%20border%20floating%20in%20dark%20space%2C%20luminous%20text%20with%20cyan%20glow%2C%20magical%20aura%20and%20light%20rays%20emanating%2C%20comic%20panel%2C%20dark%20theme%2C%20fantasy%20manga%20art%2C%20holographic%20effect&image_size=portrait_4_3" alt="视觉魔法" loading="lazy">
+        <div class="halftone"></div>
+        <div class="chapter-label"><span class="ch-num">CH.4</span> 视觉魔法</div>
+        <div class="speech-bubble bottom">看这旋转的边框，像魔法阵一样！</div>
+        <div class="sfx cyan" style="top:10%;right:10%;transform:rotate(15deg);">🔥</div>
+        <div class="narrative-box">
+          CSS Houdini 旋转边框 + 多层 text-shadow 发光 + 背景光球<br>
+          <span class="tech-tag">@property</span><span class="tech-tag">mask-composite</span><span class="tech-tag">text-shadow</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 6: 内容定制 -->
+    <div class="panel">
+      <div class="panel-inner">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=manga%20illustration%20black%20and%20white%20with%20color%20accents%2C%20colorful%20buttons%20with%20emoji%20icons%20being%20placed%20on%20a%20dark%20interface%2C%20image%20optimization%20process%20shown%20with%20before%20and%20after%2C%20comic%20panel%2C%20dark%20theme%20with%20vibrant%20accents%2C%20action%20manga%20style&image_size=portrait_4_3" alt="内容定制" loading="lazy">
+        <div class="halftone"></div>
+        <div class="chapter-label"><span class="ch-num">CH.5</span> 内容定制</div>
+        <div class="speech-bubble top right">🏠 🎵 💾 每个按钮都有灵魂！</div>
+        <div class="sfx pink" style="bottom:30%;left:8%;transform:rotate(-12deg);">🎨</div>
+        <div class="narrative-box">
+          四大导航按钮 + Friends 图片 WebP 优化 + GitHub 官方 SVG 图标<br>
+          <span class="tech-tag">WebP Lossless</span><span class="tech-tag">SVG Icon</span><span class="tech-tag">fetchpriority</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 7: 性能飞升 -->
+    <div class="panel wide">
+      <div class="panel-inner">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=manga%20illustration%20black%20and%20white%20with%20color%20accents%2C%20rocket%20launching%20from%20computer%20screen%20with%20dramatic%20speed%20lines%2C%20performance%20meters%20showing%20green%2C%20dynamic%20action%20scene%2C%20comic%20panel%2C%20shonen%20manga%20style%2C%20explosive%20energy%2C%20dramatic%20composition&image_size=landscape_16_9" alt="性能飞升" loading="lazy">
+        <div class="halftone"></div>
+        <div class="speed-lines"></div>
+        <div class="chapter-label"><span class="ch-num">CH.6</span> 性能飞升</div>
+        <div class="speech-bubble top">全速前进！！！🚀</div>
+        <div class="sfx yellow" style="top:20%;right:15%;transform:rotate(12deg);font-size:3rem;">💥</div>
+        <div class="narrative-box">
+          will-change GPU 加速 + CSS Containment + document.hidden 暂停 + 移动端粒子降级 + Resize 防抖<br>
+          <span class="tech-tag">will-change</span><span class="tech-tag">contain</span><span class="tech-tag">document.hidden</span><span class="tech-tag">Debounce</span><span class="tech-tag">Mobile Detect</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 8: 终章 -->
+    <div class="panel wide ending-panel">
+      <div class="halftone"></div>
+      <h2>🎉 E家主页，完成！</h2>
+      <p>从一行 HTML 到一个充满魔法的世界</p>
+      <a href="https://www.5iehome.cc" class="url">5iehome.cc</a>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    E家主页搭建物语 · 漫画版 · 2026
+  </div>
+
+</div>
+</body>
+</html>
