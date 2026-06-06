@@ -1,4 +1,4 @@
-# 🥝 E家分享 | 5iehome.cc 首页
+# E家分享 | 5iehome.cc 首页
 
 > **V2.0.0** · 零框架依赖 · 纯 HTML/CSS/JS · 极致性能优化
 
